@@ -1,5 +1,8 @@
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import BusNumberProvider from "@/store/busNumber";
+import BusColorProvider from "@/store/busColor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +30,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.className} antialiased`}
       >
-        {children}
+        <BusNumberProvider>
+          <BusColorProvider>{children}</BusColorProvider>
+        </BusNumberProvider>
       </body>
     </html>
   );

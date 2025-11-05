@@ -5,6 +5,7 @@ import { HiUserCircle } from "react-icons/hi";
 import { GrHomeRounded } from "react-icons/gr";
 import Location from "./component/location";
 import TicketIcon from "./component/ticketIcon";
+import Link from "next/link";
 
 export default function Home() {
   const FooterCompo = [
@@ -30,7 +31,7 @@ export default function Home() {
     },
   ];
   return (
-    <section className="flex justify-center items-center ">
+    <div className="flex justify-center items-center ">
       {/* Header Section */}
       <div
         style={{
@@ -71,12 +72,12 @@ export default function Home() {
             <HiUserCircle className="text-black text-2xl" />
           </div>
         </div>
-        <div className=" flex items-center justify-between bg-white absolute top-[82%] rounded-full p-2 text-sm justify-self-center w-[95%] ">
-          <ImLocation className="text-[#53bcbf] text-xl " />
+        <div className=" flex items-center justify-between bg-white absolute top-[82%] rounded-full p-3 shadow-md text-sm justify-self-center w-[95%] ">
+          <ImLocation className="text-[#53bcbf] text-2xl " />
           <input
             type="text"
             placeholder="Where are you going? "
-            className="placeholder:text-gray-500 font-semibold outline-none text-gray-500 w-[70vw] "
+            className="placeholder:text-gray-500 placeholder:text-[16px] placeholder:font-medium font-semibold outline-none text-gray-500 w-[70vw] "
           />
           <MdSearch className="text-gray-600 text-2xl " />
         </div>
@@ -105,7 +106,9 @@ export default function Home() {
           }}
           className=" "
         >
-          {/* <div className="w-full h-full bg-white opacity-40"></div> */}
+          <Link href="/entry">
+            <p className=" bg-transparent w-[44.5%] translate-x-[10%] translate-y-[9%] h-[57%] rounded-2xl "></p>
+          </Link>
         </div>
         <div className=" flex items-center w-full p-3 ">
           <h1 className="text-sm font-bold uppercase text-gray-500 pr-4 py-2 text-nowrap">
@@ -129,6 +132,6 @@ export default function Home() {
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }
