@@ -31,24 +31,20 @@ export default function Home() {
     },
   ];
   return (
-    <div className="flex justify-center items-center h-screen ">
+    <div className=" h-screen w-full bg-[#f8f0e5] ">
       {/* Header Section */}
       <div
         style={{
-          backgroundImage: "url('/Image.jpeg')",
+          backgroundImage: "url('./assets/background/Image.jpeg')",
           backgroundSize: "cover",
           backgroundPosition: "bottom ",
           width: "100%",
           height: "100%",
-          position: "absolute",
-          top: 0,
-          left: 0,
-          zIndex: -1,
         }}
-        className="min-h-[16vh] max-h-[19vh]"
+        className="min-h-[14vh] max-h-[16vh] w-full mb-16  "
       >
-        <div className="w-full h-full bg-white opacity-40"></div>
-        <div className=" absolute top-[22%] flex justify-between px-[4%] w-full ">
+        <div className="w-full h-full bg-white absolute top-0 min-h-[14vh] max-h-[16vh] z-10 opacity-40"></div>
+        <div className=" flex justify-between relative z-20 py-[8%] px-[4%] w-full ">
           <div>
             <Image
               src="/assets/images/logo.avif"
@@ -72,7 +68,7 @@ export default function Home() {
             <HiUserCircle className="text-black text-2xl" />
           </div>
         </div>
-        <div className=" flex items-center justify-between bg-white absolute top-[82%] rounded-full p-3 shadow-md text-sm justify-self-center w-[95%] ">
+        <div className=" flex items-center justify-between bg-white rounded-full p-3 my-2 relative z-20 shadow-md text-sm justify-self-center w-[95%] ">
           <ImLocation className="text-[#53bcbf] text-2xl " />
           <input
             type="text"
@@ -83,7 +79,7 @@ export default function Home() {
         </div>
       </div>
       {/* Middle Section */}
-      <div className="bg-white h-[50vh] absolute top-[60%] transform -translate-y-[60%] w-full flex flex-col justify-between">
+      <div className="bg-white h-[52vh] w-full flex flex-col justify-between">
         <div className=" flex items-center w-full p-3 ">
           <h1 className="text-sm font-bold uppercase text-gray-500 pr-4 py-2 text-nowrap">
             your travel kit
@@ -93,19 +89,20 @@ export default function Home() {
         <div
           style={{
             backgroundImage: "url('./assets/main/Background.png')",
-            backgroundSize: "contain",
+            backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center ",
             width: "100%",
-            height: "75%",
+            height: "100%",
             scale: "1.01",
-            position: "absolute",
-            top: 45,
+            opacity: "1",
+            // position: "absolute",
+            // top: 45,
           }}
           className=" "
         >
           <Link href="/entry">
-            <p className=" bg-transparent w-[44.5%] translate-x-[10%] translate-y-[9%] h-[57%] rounded-2xl "></p>
+            <p className=" bg-transparent w-[45%] translate-x-[8.5%] translate-y-[6%] h-[58%] rounded-2xl "></p>
           </Link>
         </div>
         <div className=" flex items-center w-full p-3 ">

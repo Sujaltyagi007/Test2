@@ -16,16 +16,34 @@ export const TicketProvider = ({ children }) => {
   const [digit, setDigit] = React.useState("");
   const completeNumber = `${number}${digit}`;
 
-  const [ticket, setTicket] = React.useState({
-    number,
-    color,
-    ticketTime,
-    ticketDate,
-    ticketCount,
-    startValue,
-    endValue,
-    route,
-    digit,
+  const [ticket, setTicket] = React.useState(() => {
+    if (typeof window !== "undefined") {
+      const savedTicket = localStorage.getItem("busTicket");
+      return (
+        JSON.parse(savedTicket) || {
+          number,
+          color,
+          ticketTime,
+          ticketDate,
+          ticketCount,
+          startValue,
+          endValue,
+          route,
+          digit,
+        }
+      );
+    }
+    return {
+      number,
+      color,
+      ticketTime,
+      ticketDate,
+      ticketCount,
+      startValue,
+      endValue,
+      route,
+      digit,
+    };
   });
 
   // Load ticket from localStorage (client side only)
@@ -34,20 +52,20 @@ export const TicketProvider = ({ children }) => {
       const savedTicket = localStorage.getItem("busTicket");
       if (savedTicket) {
         const t = JSON.parse(savedTicket);
+        console.log(t);
         setTicket(t);
         setNumber(t.number);
+        setDigit(t.digit);
+        setRoute(t.route);
         setColor(t.color);
         setTicketTime(t.ticketTime);
         setTicketDate(t.ticketDate);
         setTicketCount(t.ticketCount);
         setStartValue(t.startValue);
         setEndValue(t.endValue);
-        // setRoute(t.route);
-        // setDigit(t.digit);
       }
     }
   }, []);
-
 
   // Save ticket to localStorage whenever it changes
   React.useEffect(() => {

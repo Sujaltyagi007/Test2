@@ -74,7 +74,7 @@ export default function page() {
     }, 50);
   };
   return (
-    <section className="text-gray-600">
+    <section className="text-gray-600 h-screen w-full ">
       {/* Header section */}
       <div className="min-h-[7vh] flex items-center gap-4 px-4 mb-2 justify-between shadow-md">
         <div className=" flex justify-center items-center gap-4 ">
@@ -133,7 +133,7 @@ export default function page() {
           <input
             type="number"
             placeholder="eg. 534 or 764"
-            value={route}
+            // value={}
             onChange={(e) => setRoute(e.target.value)}
             className="w-full px-4 py-2 border rounded-md"
           />

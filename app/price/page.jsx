@@ -25,8 +25,7 @@ const roboto = Roboto_Condensed({
   weight: "400",
 });
 
-const SelectStartingStop = ({ data }) => {
-  const { startValue, setStartValue } = useTicket();
+const SelectStartingStop = ({ data , startValue, setStartValue }) => {
   const [filteredData, setFilteredData] = useState(data);
   useEffect(() => {
     const filteredData = StopList.filter((item) =>
@@ -72,8 +71,7 @@ const SelectStartingStop = ({ data }) => {
   );
 };
 
-const SelectLastStop = ({ data }) => {
-  const { endValue, setEndValue } = useTicket();
+const SelectLastStop = ({ data, endValue, setEndValue }) => {
   const [filteredData, setFilteredData] = useState(data);
   useEffect(() => {
     const filteredData = StopList.filter((item) =>
@@ -122,6 +120,7 @@ const SelectLastStop = ({ data }) => {
 export default function page() {
   const router = useRouter();
   const [busType, setBusType] = useState(0);
+  const { startValue, setStartValue, endValue, setEndValue } = useTicket();
   const [data, setData] = useState(StopList || []);
   const {
     color,
@@ -152,6 +151,8 @@ export default function page() {
       ...prev,
       completeNumber,
       route,
+      startValue,
+      endValue,
       ticketTime,
       ticketDate,
       ticketCount,
@@ -187,7 +188,7 @@ export default function page() {
     <section className="h-screen">
       {/* Header section */}
       <div
-        className={`min-h-[7vh] flex items-center gap-6 text-gray-700 px-4 mb-2 justify-between shadow-md`}
+        className={`min-h-[8vh] flex items-center gap-6 text-gray-700 px-4 mb-2 justify-between`}
       >
         <div className=" flex justify-center items-center gap-4 ">
           <Link href={"/entry"}>
@@ -196,7 +197,7 @@ export default function page() {
           <p className="text-base font-semibold">{`Ticket Details`}</p>
         </div>
         <div>
-          <p className="p-5"></p>
+          <p className="text-gray-500 text-sm px-4">02:27</p>
         </div>
       </div>
       <div className="m-4 shadow border bg-gray-50 rounded-2xl overflow-hidden ">
@@ -234,12 +235,12 @@ export default function page() {
             <CgShapeCircle />
           </div>
           <div className="flex flex-col gap-0.5 w-full py-3 ">
-            <SelectStartingStop data={data} />
-            <SelectLastStop data={data} />
+            <SelectStartingStop data={data} startValue={startValue} setStartValue={setStartValue} />
+            <SelectLastStop data={data} endValue={endValue} setEndValue={setEndValue} />
           </div>
         </div>
         <hr className=" border-gray-200 w-[90%] flex justify-self-center " />
-        <div className=" absolute bottom-[43%] px-4 overflow-hidden z-10 flex justify-between transform -translate-x-1/2 left-1/2 items-center w-[91.7%] ">
+        <div className=" absolute px-4 overflow-hidden z-10 flex justify-between transform -translate-x-1/2 -translate-y-[50%]  left-1/2 items-center w-[91.7%] ">
           <div className="p-4 bg-white rounded-full border-2 -translate-x-8 "></div>
           <div className="p-4 bg-white rounded-full border-2 translate-x-8"></div>
         </div>
