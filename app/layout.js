@@ -1,8 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import BusNumberProvider from "@/store/busNumber";
-import BusColorProvider from "@/store/busColor";
+import { TicketProvider } from "@/store/ticket";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -11,7 +10,7 @@ const geistSans = Geist({
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: "300",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -30,9 +29,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.className} antialiased`}
       >
-        <BusNumberProvider>
-          <BusColorProvider>{children}</BusColorProvider>
-        </BusNumberProvider>
+        <TicketProvider>{children}</TicketProvider>
       </body>
     </html>
   );

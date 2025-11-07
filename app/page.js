@@ -31,7 +31,7 @@ export default function Home() {
     },
   ];
   return (
-    <div className="flex justify-center items-center ">
+    <div className="flex justify-center items-center h-screen ">
       {/* Header Section */}
       <div
         style={{
@@ -83,7 +83,7 @@ export default function Home() {
         </div>
       </div>
       {/* Middle Section */}
-      <div className="bg-white h-[50vh] absolute top-[27%] w-full flex flex-col justify-between">
+      <div className="bg-white h-[50vh] absolute top-[60%] transform -translate-y-[60%] w-full flex flex-col justify-between">
         <div className=" flex items-center w-full p-3 ">
           <h1 className="text-sm font-bold uppercase text-gray-500 pr-4 py-2 text-nowrap">
             your travel kit
@@ -101,8 +101,6 @@ export default function Home() {
             scale: "1.01",
             position: "absolute",
             top: 45,
-            // left: 0,
-            // zIndex: -1,
           }}
           className=" "
         >
@@ -117,11 +115,11 @@ export default function Home() {
           <div className="w-[45vw] h-px bg-linear-to-r from-gray-400  to-white"></div>
         </div>
       </div>
-      <div className="w-full bg-[#8fdaed] absolute bottom-10 h-[20vh] ">
+      <div className="w-full bg-[#8fdaed] fixed bottom-10 h-[20vh] ">
         <div className="h-[10%] bg-linear-to-b from-white  to-[#8fdaed] "></div>
       </div>
       {/* Footer Section */}
-      <div className=" flex justify-around items-center p-2 text-gray-600  font-semibold absolute -bottom-1 w-full bg-white">
+      <div className=" flex justify-around items-center p-2 text-gray-600  font-semibold fixed bottom-0 w-full bg-white">
         {FooterCompo.map((item, index) => (
           <div
             key={index}

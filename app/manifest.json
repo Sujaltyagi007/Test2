@@ -1,0 +1,22 @@
+{
+    "name": "Chartr",
+    "short_name": "Chartr",
+    "description": "Official DTC Ticket App.",
+    "version": "1.0.0",
+    "author": "DTC",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#189da1",
+    "icons": [
+        {
+            "src": "assets/logo/logo.png",
+            "sizes": "320x320",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ],
+    "permissions": [],
+    "orientation": "portrait-primary",
+    "lang": "en-US"
+}

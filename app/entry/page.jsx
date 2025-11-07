@@ -1,6 +1,7 @@
 "use client";
-import React, { use, useEffect } from "react";
+import React from "react";
 import { MdArrowBack } from "react-icons/md";
+import { useRouter } from "next/navigation";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../component/input-otp";
 import Link from "next/link";
 import {
@@ -10,12 +11,68 @@ import {
   SelectTrigger,
 } from "../component/select";
 import { SelectValue } from "@radix-ui/react-select";
-import { useBusNumber } from "@/store/busNumber";
-import { useBusColor } from "@/store/busColor";
+import { useTicket } from "@/store/ticket";
+
+function ticTime() {
+  const now = new Date();
+  const ticTime = now.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+  return ticTime;
+}
+
+function ticDate() {
+  const now = new Date();
+  const day = now.getDate().toString().padStart(2, "0");
+  const month = now.toLocaleString("en-US", { month: "short" }); // "Nov"
+  const year = now.getFullYear();
+  const formattedDate = `${day} ${month}, ${year}`;
+
+  // Format time: "3:42 PM"
+  const formattedTime = now.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+  return formattedDate;
+}
 
 export default function page() {
-  const { color, setColor } = useBusColor();
-  const { number, setNumber, setDigit, setRoute } = useBusNumber();
+  const router = useRouter();
+  const ticketTime = ticTime();
+  const ticketDate = ticDate();
+  const {
+    setTicket,
+    setTicketTime,
+    setTicketDate,
+    route,
+    color,
+    setColor,
+    number,
+    setNumber,
+    setRoute,
+    digit,
+    setDigit,
+  } = useTicket();
+
+  const handleNext = () => {
+    setTicketTime(ticketTime);
+    setTicketDate(ticketDate);
+    setTicket((prev) => ({
+      ...prev,
+      color,
+      number,
+      route,
+      digit,
+      ticketTime,
+      ticketDate,
+    }));
+    setTimeout(() => {
+      router.push("/price");
+    }, 50);
+  };
   return (
     <section className="text-gray-600">
       {/* Header section */}
@@ -27,9 +84,9 @@ export default function page() {
           <p className="text-base font-semibold">{`New Bus Ticket`}</p>
         </div>
 
-        <Link href={"/price"}>
+        <button onClick={handleNext}>
           <p className="p-5"></p>
-        </Link>
+        </button>
       </div>
       {/* Boxes */}
       <div className=" p-3 flex flex-col gap-3">
@@ -76,6 +133,7 @@ export default function page() {
           <input
             type="number"
             placeholder="eg. 534 or 764"
+            value={route}
             onChange={(e) => setRoute(e.target.value)}
             className="w-full px-4 py-2 border rounded-md"
           />
