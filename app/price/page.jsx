@@ -43,103 +43,101 @@ const CountdownTimer = () => {
   );
 };
 
-const SelectStartingStop = ({ data, startValue, setStartValue }) => {
-  const [filteredData, setFilteredData] = useState(data);
+// const SelectStartingStop = ({ data, startValue, setStartValue }) => {
+//   const [filteredData, setFilteredData] = useState(data);
+//   useEffect(() => {
+//     if (startValue.trim() === "") {
+//       setFilteredData([]);
+//       return;
+//     }
+
+//     const filtered = data.filter((item) =>
+//       item.toLowerCase().includes(startValue.toLowerCase())
+//     );
+//     setFilteredData(filtered);
+//   }, [startValue]);
+
+//   const handleSelect = (item) => {
+//     setStartValue(item);
+//     setFilteredData([]);
+//   };
+//   return (
+//     <div className="flex flex-col gap-0.5 w-full mb-1.5 pt-0.5 ">
+//       <h2 className="text-[12.5px] font-semibold text-[#acacac]">
+//         {"Starting Stop"}
+//       </h2>
+//       <input
+//         type="text"
+//         value={startValue}
+//         placeholder="Enter Starting Stop"
+//         onChange={(e) => setStartValue(e.target.value)}
+//         className="text-sm font-semibold border border-gray-300 text-gray-700 p-1.5 w-full"
+//       />
+//       {startValue && filteredData.length > 0 && (
+//         <ul
+//           style={{ display: filteredData.length > 0 ? "block" : "none" }}
+//           className="absolute bg-white list-none border transform translate-y-14 w-[75vw] max-h-[40vh] h-fit text-wrap overflow-y-scroll overflow-x-clip "
+//           // onClick={() => setFilteredData([])}
+//         >
+//           {filteredData.map((item, index) => (
+//             <li
+//               key={index}
+//               onClick={(e) => {
+//                 e.stopPropagation();
+//                 handleSelect(item);
+//               }}
+//               className=" cursor-pointer text-wrap w-full border-b px-3 py-2 "
+//             >
+//               {item}
+//             </li>
+//           ))}
+//         </ul>
+//       )}
+//     </div>
+//   );
+// };
+
+const StopSelector = ({ label, value, setValue, data, placeholder }) => {
+  const [filteredData, setFilteredData] = useState([]);
+  const [showList, setShowList] = useState(false);
   useEffect(() => {
-    if (startValue.trim() === "") {
+    if (!value.trim()) {
       setFilteredData([]);
       return;
     }
-
     const filtered = data.filter((item) =>
-      item.toLowerCase().includes(startValue.toLowerCase())
+      item.toLowerCase().includes(value.toLowerCase())
     );
     setFilteredData(filtered);
-  }, [startValue]);
+  }, [value, data]);
 
   const handleSelect = (item) => {
-    setStartValue(item); // Set the input value
-    setFilteredData([]); // Clear the list immediately
+    setValue(item);
+    setShowList(false);
   };
+
   return (
-    <div className="flex flex-col gap-0.5 w-full mb-1.5 pt-0.5 ">
-      <h2 className="text-[12.5px] font-semibold text-[#acacac]">
-        {"Starting Stop"}
-      </h2>
+    <div className="flex flex-col gap-0.5 w-full mb-1.5 pt-0.5 relative">
+      <h2 className="text-[12.5px] font-semibold text-[#acacac]">{label}</h2>
       <input
         type="text"
-        value={startValue}
-        placeholder="Enter Starting Stop"
-        onChange={(e) => setStartValue(e.target.value)}
+        value={value}
+        onChange={(e) => {
+          setValue(e.target.value);
+          setShowList(true);
+        }}
+        onFocus={() => setShowList(true)}
+        placeholder={placeholder}
         className="text-sm font-semibold border border-gray-300 text-gray-700 p-1.5 w-full"
       />
-      {startValue && filteredData.length > 0 && (
-        <ul
-          style={{ display: filteredData.length > 0 ? "block" : "none" }}
-          className="absolute bg-white list-none border transform translate-y-14 w-[75vw] max-h-[40vh] h-fit text-wrap overflow-y-scroll overflow-x-clip "
-          onClick={() => setFilteredData([])}
-        >
+
+      {showList && filteredData.length > 0 && (
+        <ul className="absolute bg-white list-none border rounded transform translate-y-14 shadow-md w-full max-h-[40vh] overflow-y-scroll z-10">
           {filteredData.map((item, index) => (
             <li
               key={index}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleSelect(item);
-              }}
-              className=" cursor-pointer text-wrap w-full border-b px-3 py-2 "
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-};
-
-const SelectLastStop = ({ data, endValue, setEndValue }) => {
-  const [filteredData, setFilteredData] = useState(data);
-  const handleSelect = (item) => {
-    setEndValue(item);
-    setFilteredData([]);
-  };
-  useEffect(() => {
-    if (endValue.trim() === "") {
-      setFilteredData([]);
-      return;
-    }
-
-    const filtered = data.filter((item) =>
-      item.toLowerCase().includes(endValue.toLowerCase())
-    );
-    setFilteredData(filtered);
-  }, [endValue]);
-  return (
-    <div className="flex flex-col gap-0.5 w-full mb-1.5 pt-0.5">
-      <h2 className="text-[12.5px] font-semibold text-[#acacac]">
-        {"Last Stop"}
-      </h2>
-      <input
-        type="text"
-        value={endValue}
-        onChange={(e) => setEndValue(e.target.value)}
-        placeholder="Enter Last Stop"
-        className="text-sm font-semibold border border-gray-300 text-gray-700 p-1.5 w-full"
-      />
-      {endValue && filteredData.length > 0 && (
-        <ul
-          style={{ display: filteredData.length > 0 ? "block" : "none" }}
-          className="absolute bg-white list-none border transform translate-y-14 w-[75vw] max-h-[40vh] h-fit text-wrap overflow-y-scroll overflow-x-clip "
-          // onClick={() => setFilteredData([])}
-        >
-          {filteredData.map((item, index) => (
-            <li
-              key={index}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleSelect(item);
-              }}
-              className=" cursor-pointer text-wrap w-full border-b px-3 py-2 "
+              onClick={() => handleSelect(item)}
+              className="cursor-pointer px-3 py-2 border-b hover:bg-gray-100 text-sm"
             >
               {item}
             </li>
@@ -156,6 +154,11 @@ export default function page() {
   const [startValue, setStartValue] = useState("");
   const [endValue, setEndValue] = useState("");
   const [data, setData] = useState(StopList || []);
+
+  useEffect(() => {
+    console.log(startValue, endValue);
+  }, [startValue, endValue]);
+
   const {
     color,
     completeNumber,
@@ -214,9 +217,9 @@ export default function page() {
     }
   };
 
-  <div className="font-semibold">
-    {getPriceLabel(ticketPrice)} ₹.{ticketPrice}0
-  </div>;
+  // <div className="font-semibold">
+  //   {getPriceLabel(ticketPrice)} ₹.{ticketPrice}0
+  // </div>;
 
   return (
     <section className="h-screen w-screen overflow-hidden ">
@@ -269,15 +272,19 @@ export default function page() {
             <CgShapeCircle />
           </div>
           <div className="flex flex-col gap-0.5 w-full py-3 ">
-            <SelectStartingStop
+            <StopSelector
+              label="Starting Stop"
+              value={startValue}
+              setValue={setStartValue}
               data={data}
-              startValue={startValue}
-              setStartValue={setStartValue}
+              placeholder="Enter Starting Stop"
             />
-            <SelectLastStop
+            <StopSelector
+              label="Last Stop"
+              value={endValue}
+              setValue={setEndValue}
               data={data}
-              endValue={endValue}
-              setEndValue={setEndValue}
+              placeholder="Enter Last Stop"
             />
           </div>
         </div>

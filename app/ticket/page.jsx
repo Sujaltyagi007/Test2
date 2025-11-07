@@ -3,7 +3,6 @@ import React from "react";
 import { CgClose } from "react-icons/cg";
 import { BsQrCode } from "react-icons/bs";
 import { useTicket } from "@/store/ticket";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const CurrentDate = () => {
@@ -65,8 +64,11 @@ export default function page() {
     }
   };
 
-  const handleGoHome = () => {
-    router.push("/");
+  const handleGoHome = (e) => {
+    e.preventDefault();
+    setTimeout(() => {
+      router.push("/");
+    }, 50);
   };
   return (
     <section
@@ -74,10 +76,11 @@ export default function page() {
       style={{ backgroundColor: color }}
     >
       <div className="fixed top-0 left-0 w-full text-xs text-white flex justify-between px-4 py-4">
-        <div
-        onClick={handleGoHome}
-        className=" flex justify-center items-center gap-2">
-          <CgClose className="text-2xl text-gray-200 " />
+        <div className=" flex justify-center items-center gap-2">
+          <CgClose
+            onClick={handleGoHome}
+            className="text-2xl text-gray-200 "
+          />
         </div>
         <div className="flex items-center gap-6">
           <div className="flex justify-center items-center gap-1">
