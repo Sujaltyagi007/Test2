@@ -104,19 +104,19 @@ export default function page() {
             <InputOTPGroup className={"gap-4"}>
               <InputOTPSlot
                 index={0}
-                className={" rounded-lg p-5 border bg-[#f8f2ff]/40"}
+                className={" rounded-lg p-5 border bg-[#f7f8fc]"}
               />
               <InputOTPSlot
                 index={1}
-                className={" rounded-lg p-5 border bg-[#f8f2ff]/40"}
+                className={" rounded-lg p-5 border bg-[#f7f8fc]"}
               />
               <InputOTPSlot
                 index={2}
-                className={" rounded-lg p-5 border bg-[#f8f2ff]/40"}
+                className={" rounded-lg p-5 border bg-[#f7f8fc]"}
               />
               <InputOTPSlot
                 index={3}
-                className={" rounded-lg p-5 border bg-[#f8f2ff]/40"}
+                className={" rounded-lg p-5 border bg-[#f7f8fc]"}
               />
             </InputOTPGroup>
           </InputOTP>
@@ -135,7 +135,7 @@ export default function page() {
             placeholder="eg. 534 or 764"
             // value={}
             onChange={(e) => setRoute(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md"
+            className="w-full px-4 py-2 border rounded-md bg-[#f7f8fc]"
           />
           <p className="text-[13px] font-normal text-gray-500">
             You can ask conductor for current route.

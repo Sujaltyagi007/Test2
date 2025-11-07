@@ -26,13 +26,13 @@ const roboto = Roboto_Condensed({
 });
 
 const CountdownTimer = () => {
-  const [timeLeft, setTimeLeft] = React.useState(2 * 60 + 52); 
+  const [timeLeft, setTimeLeft] = React.useState(2 * 60 + 52);
   React.useEffect(() => {
     if (timeLeft <= 0) return;
     const timer = setInterval(() => {
       setTimeLeft((prev) => prev - 1);
     }, 1000);
-    return () => clearInterval(timer); 
+    return () => clearInterval(timer);
   }, [timeLeft]);
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
@@ -65,20 +65,19 @@ const SelectStartingStop = ({ data, startValue, setStartValue }) => {
       />
       {startValue && filteredData.length > 0 && (
         <ul
-          style={{
-            listStyle: "none",
-            padding: "10px",
-            border: "1px solid #ccc",
-          }}
+          style={{ display: filteredData.length > 0 ? "block" : "none" }}
+          className="absolute bg-white list-none border transform translate-y-14 w-[75vw] max-h-[40vh] h-fit text-wrap overflow-y-scroll overflow-x-clip "
           onClick={() => setFilteredData([])}
         >
           {filteredData.map((item, index) => (
             <li
               key={index}
-              onClick={() => {
-                setStartValue(item), setFilteredData([]);
+              onClick={(e) => {
+                e.stopPropagation();
+                setStartValue(item);
+                setFilteredData([]);
               }}
-              style={{ cursor: "pointer" }}
+              className=" cursor-pointer text-wrap w-full border-b px-3 py-2 "
             >
               {item}
             </li>
@@ -111,20 +110,19 @@ const SelectLastStop = ({ data, endValue, setEndValue }) => {
       />
       {endValue && filteredData.length > 0 && (
         <ul
-          style={{
-            listStyle: "none",
-            padding: "10px",
-            border: "1px solid #ccc",
-          }}
+          style={{ display: filteredData.length > 0 ? "block" : "none" }}
+          className="absolute bg-white list-none border transform translate-y-14 w-[75vw] max-h-[40vh] h-fit text-wrap overflow-y-scroll overflow-x-clip "
           onClick={() => setFilteredData([])}
         >
           {filteredData.map((item, index) => (
             <li
               key={index}
-              onClick={() => {
-                setEndValue(item), setFilteredData([]);
+              onClick={(e) => {
+                e.stopPropagation();
+                setEndValue(item);
+                setFilteredData([]);
               }}
-              style={{ cursor: "pointer" }}
+              className=" cursor-pointer text-wrap w-full border-b px-3 py-2 "
             >
               {item}
             </li>
@@ -138,7 +136,8 @@ const SelectLastStop = ({ data, endValue, setEndValue }) => {
 export default function page() {
   const router = useRouter();
   const [busType, setBusType] = useState(0);
-  const { startValue, setStartValue, endValue, setEndValue } = useTicket();
+  const [startValue, setStartValue] = useState("");
+  const [endValue, setEndValue] = useState("");
   const [data, setData] = useState(StopList || []);
   const {
     color,
@@ -203,10 +202,10 @@ export default function page() {
   </div>;
 
   return (
-    <section className="h-screen">
+    <section className="h-screen w-screen overflow-hidden ">
       {/* Header section */}
       <div
-        className={`min-h-[8vh] flex items-center gap-6 text-gray-700 px-4 mb-2 justify-between`}
+        className={`min-h-[7vh] flex items-center gap-6 text-gray-700 px-4 justify-between`}
       >
         <div className=" flex justify-center items-center gap-4 ">
           <Link href={"/entry"}>
@@ -215,11 +214,10 @@ export default function page() {
           <p className="text-[0.9rem] font-semibold">{`Ticket Details`}</p>
         </div>
         <div>
-          {/* <p className="text-gray-500 text-sm px-4">02:27</p> */}
           <CountdownTimer />
         </div>
       </div>
-      <div className="m-4 shadow border bg-[#fafafa] rounded-2xl overflow-hidden ">
+      <div className="mx-4 my-2 shadow border bg-[#fafafa] rounded-2xl overflow-hidden ">
         <div
           style={{ backgroundColor: color }}
           className={` flex justify-between text-[14px] ${roboto.className} text-white px-4 py-3 overflow-hidden rounded-t-2xl items-center`}

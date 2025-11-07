@@ -1,4 +1,4 @@
-import Image from "next/image";
+"use client";
 import { ImLocation } from "react-icons/im";
 import { MdHelpOutline, MdSearch } from "react-icons/md";
 import { HiUserCircle } from "react-icons/hi";
@@ -6,35 +6,39 @@ import { GrHomeRounded } from "react-icons/gr";
 import Location from "./component/location";
 import TicketIcon from "./component/ticketIcon";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   const FooterCompo = [
     {
       name: "Home",
       icon: <GrHomeRounded className="text-gray-700 text-xl" />,
-      link: "/",
     },
     {
       name: "Neardy",
       icon: <Location className="w-4.5 text-gray-500 scale-200" />,
-      link: "/",
     },
     {
       name: "Ticket & Pass",
       icon: <TicketIcon className="w-5 text-gray-500 scale-200" />,
-      link: "/viewPage",
     },
     {
       name: "Around me",
       icon: <Location className="w-4.5 text-gray-500 scale-200 " />,
-      link: "/",
     },
     {
       name: "Help",
       icon: <MdHelpOutline className="text-gray-700 text-2xl" />,
-      link: "/",
     },
   ];
+
+  const handleTicket = () => {
+    router.push("/viewPage");
+  };
+  const handleHome = () => {
+    router.push("/");
+  };
   return (
     <div className=" h-screen w-full bg-[#f8f0e5] overflow-hidden ">
       {/* Header Section */}
@@ -74,18 +78,18 @@ export default function Home() {
           <input
             type="text"
             placeholder="Where are you going? "
-            className="placeholder:text-gray-500 placeholder:text-[16px] placeholder:font-medium font-semibold outline-none text-gray-500 w-[70vw] "
+            className="placeholder:text-gray-500 placeholder:text-[15px] placeholder:font-medium font-medium outline-none text-gray-500 w-[70vw] "
           />
           <MdSearch className="text-gray-600 text-2xl " />
         </div>
       </div>
       {/* Middle Section */}
-      <div className="bg-white h-[52vh] w-full flex flex-col justify-between">
-        <div className=" flex items-center w-full p-4 ">
-          <h1 className="text-sm font-bold uppercase text-gray-500 pr-4 py-2 text-nowrap">
+      <div className="bg-white h-[50vh] w-full flex flex-col justify-between">
+        <div className=" flex items-center w-full px-4 py-2 ">
+          <h1 className="text-[13px] font-semibold uppercase text-[#979797] pr-4 py-2 text-nowrap">
             your travel kit
           </h1>
-          <div className="w-[45vw] h-px bg-linear-to-r from-gray-400  to-white"></div>
+          <div className="w-[45vw] h-px bg-linear-to-r from-[#979797]  to-white"></div>
         </div>
         <div
           style={{
@@ -107,7 +111,7 @@ export default function Home() {
           </Link>
         </div>
         <div className=" flex items-center w-full p-4 ">
-          <h1 className="text-sm font-bold uppercase text-gray-500 pr-4 py-2 text-nowrap">
+          <h1 className="text-[13px] font-semibold uppercase text-[#979797] pr-4 py-2 text-nowrap">
             Around you
           </h1>
           <div className="w-[45vw] h-px bg-linear-to-r from-gray-400  to-white"></div>
@@ -117,21 +121,16 @@ export default function Home() {
         <div className="h-[8%] bg-linear-to-b from-white  to-[#8fdaed] "></div>
       </div>
       {/* Footer Section */}
-      <div className=" grid grid-cols-5 items-center p-2 text-gray-600  font-semibold fixed bottom-0 w-full bg-white">
+      <div className=" flex justify-between items-center px-4 py-3 text-[#979797]  font-semibold fixed bottom-0 w-full bg-white">
         {FooterCompo.map((item, index) => (
-          <Link
-            href={item.link}
+          <div
             key={index}
-            className="flex flex-col items-center "
+            onClick={index === 2 ? handleTicket : handleHome}
+            className=" flex flex-col justify-center items-center text-nowrap "
           >
-            <div
-              key={index}
-              className=" flex flex-col justify-center items-center text-nowrap "
-            >
-              {item.icon}
-              <span className="text-[12px]">{item.name}</span>
-            </div>
-          </Link>
+            {item.icon}
+            <span className="text-[12px]">{item.name}</span>
+          </div>
         ))}
       </div>
     </div>

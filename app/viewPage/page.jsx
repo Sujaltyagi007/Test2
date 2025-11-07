@@ -87,13 +87,18 @@ export default function page() {
   const handleNext = () => {
     router.push("/ticket");
   };
+
+  const handleGoBackHome = () => {
+    router.push("/");
+  };
   return (
     <section className="h-screen w-full">
       {/* Header Section */}
-      <div className="flex items-center gap-6 px-4 py-3">
-        <Link href="/">
-          <MdArrowBack className="text-gray-700 text-2xl" />
-        </Link>
+      <div
+        onClick={handleGoBackHome}
+        className="flex items-center gap-6 px-4 py-3"
+      >
+        <MdArrowBack className="text-gray-700 text-2xl" />
         <span className="text-[16px] font-bold">{"All Bookings"}</span>
       </div>
       {/* Navigation Tabs */}

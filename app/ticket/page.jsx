@@ -93,7 +93,7 @@ export default function page() {
           </div>
         ) : (
           <>
-            <h2 className="font-semibold text-center w-full ">
+            <h2 className="font-semibold text-center w-full">
               Transport Dept. of Delhi
             </h2>
             <div className="flex justify-between border-b py-2">
