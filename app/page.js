@@ -46,26 +46,22 @@ export default function Home() {
         <div className="w-full h-full bg-white absolute top-0 min-h-[14vh] max-h-[16vh] z-10 opacity-40"></div>
         <div className=" flex justify-between relative z-20 py-[8%] px-[4%] w-full ">
           <div>
-            <Image
-              src="/assets/images/logo.avif"
+            <img
+              src="./assets/images/logo.avif"
               alt="logo"
-              width={512}
-              height={88}
-              className=" w-[28vw] h-fit"
+              className="w-[28vw] h-fit"
             />
           </div>
           <div className="flex items-center gap-3 ">
             <div className="p-1.5 rounded-r-full rounded-tl-full flex justify-center items-center gap-1 text-gray-800 text-[12px] bg-white">
-              <Image
-                src={"/assets/main/wallet.svg"}
+              <img
+                src={"./assets/main/wallet.svg"}
                 alt="wallet"
-                width={275}
-                height={210}
                 className="size-5 rotate-y-30 perspective-normal "
               />
               &#8377; 0.0
             </div>
-            <HiUserCircle className="text-black text-2xl" />
+            <HiUserCircle className="text-black text-[34px]" />
           </div>
         </div>
         <div className=" flex items-center justify-between bg-white rounded-full p-3 my-2 relative z-20 shadow-md text-sm justify-self-center w-[95%] ">
@@ -80,7 +76,7 @@ export default function Home() {
       </div>
       {/* Middle Section */}
       <div className="bg-white h-[52vh] w-full flex flex-col justify-between">
-        <div className=" flex items-center w-full p-3 ">
+        <div className=" flex items-center w-full p-4 ">
           <h1 className="text-sm font-bold uppercase text-gray-500 pr-4 py-2 text-nowrap">
             your travel kit
           </h1>
@@ -99,21 +95,21 @@ export default function Home() {
             // position: "absolute",
             // top: 45,
           }}
-          className=" "
+          className=" max-w-screen "
         >
           <Link href="/entry">
             <p className=" bg-transparent w-[45%] translate-x-[8.5%] translate-y-[6%] h-[58%] rounded-2xl "></p>
           </Link>
         </div>
-        <div className=" flex items-center w-full p-3 ">
+        <div className=" flex items-center w-full p-4 ">
           <h1 className="text-sm font-bold uppercase text-gray-500 pr-4 py-2 text-nowrap">
             Around you
           </h1>
           <div className="w-[45vw] h-px bg-linear-to-r from-gray-400  to-white"></div>
         </div>
       </div>
-      <div className="w-full bg-[#8fdaed] fixed bottom-10 h-[20vh] ">
-        <div className="h-[10%] bg-linear-to-b from-white  to-[#8fdaed] "></div>
+      <div className="w-full bg-[#8fdaed] h-[20vh] absolute transform -translate-y-[10%] ">
+        <div className="h-[8%] bg-linear-to-b from-white  to-[#8fdaed] "></div>
       </div>
       {/* Footer Section */}
       <div className=" flex justify-around items-center p-2 text-gray-600  font-semibold fixed bottom-0 w-full bg-white">

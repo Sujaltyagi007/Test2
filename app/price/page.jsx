@@ -25,7 +25,25 @@ const roboto = Roboto_Condensed({
   weight: "400",
 });
 
-const SelectStartingStop = ({ data , startValue, setStartValue }) => {
+const CountdownTimer = () => {
+  const [timeLeft, setTimeLeft] = React.useState(2 * 60 + 52); 
+  React.useEffect(() => {
+    if (timeLeft <= 0) return;
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+    return () => clearInterval(timer); 
+  }, [timeLeft]);
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  return (
+    <p className="text-gray-500 text-sm px-4">
+      {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
+    </p>
+  );
+};
+
+const SelectStartingStop = ({ data, startValue, setStartValue }) => {
   const [filteredData, setFilteredData] = useState(data);
   useEffect(() => {
     const filteredData = StopList.filter((item) =>
@@ -159,7 +177,7 @@ export default function page() {
       ticketPrice,
     }));
     setTimeout(() => {
-      router.push("/ticket");
+      router.push("/loading");
     }, 50);
   };
 
@@ -194,13 +212,14 @@ export default function page() {
           <Link href={"/entry"}>
             <MdArrowBack className="text-2xl" />
           </Link>
-          <p className="text-base font-semibold">{`Ticket Details`}</p>
+          <p className="text-[0.9rem] font-semibold">{`Ticket Details`}</p>
         </div>
         <div>
-          <p className="text-gray-500 text-sm px-4">02:27</p>
+          {/* <p className="text-gray-500 text-sm px-4">02:27</p> */}
+          <CountdownTimer />
         </div>
       </div>
-      <div className="m-4 shadow border bg-gray-50 rounded-2xl overflow-hidden ">
+      <div className="m-4 shadow border bg-[#fafafa] rounded-2xl overflow-hidden ">
         <div
           style={{ backgroundColor: color }}
           className={` flex justify-between text-[14px] ${roboto.className} text-white px-4 py-3 overflow-hidden rounded-t-2xl items-center`}
@@ -235,11 +254,26 @@ export default function page() {
             <CgShapeCircle />
           </div>
           <div className="flex flex-col gap-0.5 w-full py-3 ">
-            <SelectStartingStop data={data} startValue={startValue} setStartValue={setStartValue} />
-            <SelectLastStop data={data} endValue={endValue} setEndValue={setEndValue} />
+            <SelectStartingStop
+              data={data}
+              startValue={startValue}
+              setStartValue={setStartValue}
+            />
+            <SelectLastStop
+              data={data}
+              endValue={endValue}
+              setEndValue={setEndValue}
+            />
           </div>
         </div>
-        <hr className=" border-gray-200 w-[90%] flex justify-self-center " />
+        <div
+          className=" h-px "
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(to right, #dbdbdb 0 6px, transparent 7px 12px)",
+          }}
+        ></div>
+
         <div className=" absolute px-4 overflow-hidden z-10 flex justify-between transform -translate-x-1/2 -translate-y-[50%]  left-1/2 items-center w-[91.7%] ">
           <div className="p-4 bg-white rounded-full border-2 -translate-x-8 "></div>
           <div className="p-4 bg-white rounded-full border-2 translate-x-8"></div>
@@ -297,7 +331,7 @@ export default function page() {
           </div>
         </div>
       </div>
-      <div className=" m-4 shadow border bg-gray-50 rounded-2xl overflow-hidden px-4 py-1.5 flex justify-between items-center ">
+      <div className=" m-4 shadow border bg-[#fafafa] rounded-2xl overflow-hidden px-4 py-1.5 flex justify-between items-center ">
         <div className=" flex flex-col gap-1">
           <h2 className="flex gap-2 items-center font-extrabold text-gray-900 text-base ">
             Final Fare
