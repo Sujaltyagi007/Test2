@@ -13,23 +13,23 @@ export default function Home() {
   const FooterCompo = [
     {
       name: "Home",
-      icon: <GrHomeRounded className="text-gray-700 text-xl" />,
+      icon: <GrHomeRounded className=" text-xl" />,
     },
     {
       name: "Neardy",
-      icon: <Location className="w-4.5 text-gray-500 scale-200" />,
+      icon: <Location className="w-4.5 text-[#979797]! scale-200" />,
     },
     {
       name: "Ticket & Pass",
-      icon: <TicketIcon className="w-5 text-gray-500 scale-200" />,
+      icon: <TicketIcon className="w-5 text-[#979797] scale-200" />,
     },
     {
       name: "Around me",
-      icon: <Location className="w-4.5 text-gray-500 scale-200 " />,
+      icon: <Location className="w-4.5 text-[#979797]! scale-200 " />,
     },
     {
       name: "Help",
-      icon: <MdHelpOutline className="text-gray-700 text-2xl" />,
+      icon: <MdHelpOutline className="text-[#979797] text-2xl" />,
     },
   ];
 
@@ -101,8 +101,6 @@ export default function Home() {
             height: "100%",
             scale: "1.01",
             opacity: "1",
-            // position: "absolute",
-            // top: 45,
           }}
           className=" max-w-screen "
         >
@@ -121,15 +119,19 @@ export default function Home() {
         <div className="h-[8%] bg-linear-to-b from-white  to-[#8fdaed] "></div>
       </div>
       {/* Footer Section */}
-      <div className=" flex justify-between items-center px-4 py-3 text-[#979797]  font-semibold fixed bottom-0 w-full bg-white">
+      <div className=" flex justify-between items-center px-4 pb-5 pt-3  fixed bottom-0 w-full bg-white">
         {FooterCompo.map((item, index) => (
           <div
             key={index}
             onClick={index === 2 ? handleTicket : handleHome}
-            className=" flex flex-col justify-center items-center text-nowrap "
+            className={`flex flex-col justify-center items-center ${
+              index === 0 ? "text-gray-800" : "text-[#979797]"
+            }  text-nowrap font-medium `}
           >
             {item.icon}
-            <span className="text-[12px]">{item.name}</span>
+            <span className={`text-[12px] ${index === 0 && "font-semibold"} `}>
+              {item.name}
+            </span>
           </div>
         ))}
       </div>

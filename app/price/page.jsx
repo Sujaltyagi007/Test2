@@ -46,11 +46,21 @@ const CountdownTimer = () => {
 const SelectStartingStop = ({ data, startValue, setStartValue }) => {
   const [filteredData, setFilteredData] = useState(data);
   useEffect(() => {
-    const filteredData = StopList.filter((item) =>
+    if (startValue.trim() === "") {
+      setFilteredData([]);
+      return;
+    }
+
+    const filtered = data.filter((item) =>
       item.toLowerCase().includes(startValue.toLowerCase())
     );
-    setFilteredData(filteredData);
+    setFilteredData(filtered);
   }, [startValue]);
+
+  const handleSelect = (item) => {
+    setStartValue(item); // Set the input value
+    setFilteredData([]); // Clear the list immediately
+  };
   return (
     <div className="flex flex-col gap-0.5 w-full mb-1.5 pt-0.5 ">
       <h2 className="text-[12.5px] font-semibold text-[#acacac]">
@@ -74,8 +84,7 @@ const SelectStartingStop = ({ data, startValue, setStartValue }) => {
               key={index}
               onClick={(e) => {
                 e.stopPropagation();
-                setStartValue(item);
-                setFilteredData([]);
+                handleSelect(item);
               }}
               className=" cursor-pointer text-wrap w-full border-b px-3 py-2 "
             >
@@ -90,11 +99,20 @@ const SelectStartingStop = ({ data, startValue, setStartValue }) => {
 
 const SelectLastStop = ({ data, endValue, setEndValue }) => {
   const [filteredData, setFilteredData] = useState(data);
+  const handleSelect = (item) => {
+    setEndValue(item);
+    setFilteredData([]);
+  };
   useEffect(() => {
-    const filteredData = StopList.filter((item) =>
+    if (endValue.trim() === "") {
+      setFilteredData([]);
+      return;
+    }
+
+    const filtered = data.filter((item) =>
       item.toLowerCase().includes(endValue.toLowerCase())
     );
-    setFilteredData(filteredData);
+    setFilteredData(filtered);
   }, [endValue]);
   return (
     <div className="flex flex-col gap-0.5 w-full mb-1.5 pt-0.5">
@@ -112,15 +130,14 @@ const SelectLastStop = ({ data, endValue, setEndValue }) => {
         <ul
           style={{ display: filteredData.length > 0 ? "block" : "none" }}
           className="absolute bg-white list-none border transform translate-y-14 w-[75vw] max-h-[40vh] h-fit text-wrap overflow-y-scroll overflow-x-clip "
-          onClick={() => setFilteredData([])}
+          // onClick={() => setFilteredData([])}
         >
           {filteredData.map((item, index) => (
             <li
               key={index}
               onClick={(e) => {
                 e.stopPropagation();
-                setEndValue(item);
-                setFilteredData([]);
+                handleSelect(item);
               }}
               className=" cursor-pointer text-wrap w-full border-b px-3 py-2 "
             >

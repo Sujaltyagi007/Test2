@@ -8,7 +8,12 @@ import { IoArrowDown } from "react-icons/io5";
 import { ImLocation } from "react-icons/im";
 import { useTicket } from "@/store/ticket";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { Roboto_Condensed } from "next/font/google";
+
+const roboto = Roboto_Condensed({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 const getTicketPrice = ({ ticketPrice }) => {
   switch (ticketPrice) {
@@ -36,7 +41,7 @@ const TicketCard = () => {
       <div className="flex items-center w-full justify-between px-1 ">
         <div className="flex items-center gap-3">
           <IoMdBus className="text-[#3563aa] text-2xl" />
-          <p className="py-1 px-2 text-sm font-semibold bg-[#e1ecfe] rounded-[5px] text-[#5b7eb2] ">{`Route ${route}`}</p>
+          <p className="py-1 px-2 text-sm font-semibold bg-[#e8f1ff] rounded-[5px] text-[#5b7eb2] ">{`Route ${route}`}</p>
         </div>
         <div className="flex items-center gap-2">
           <p>₹{getTicketPrice({ ticketPrice })}</p>
@@ -68,7 +73,7 @@ const TicketCard = () => {
 const NoneCard = ({ text }) => {
   return (
     <>
-      <h2 className="font-bold text-[16px] pt-2 pb-1">{text}</h2>
+      <h2 className="font-bold text-[16px] pt-2 pb-2">{text}</h2>
       <div className="flex flex-col p-2 w-full mb-2 items-center gap-2 border rounded-2xl">
         <p className="text-sm text-gray-600">
           {"Click to see past "}
@@ -99,7 +104,7 @@ export default function page() {
         className="flex items-center gap-6 px-4 py-3"
       >
         <MdArrowBack className="text-gray-700 text-2xl" />
-        <span className="text-[16px] font-bold">{"All Bookings"}</span>
+        <span className="text-[16px] font-semibold">{"All Bookings"}</span>
       </div>
       {/* Navigation Tabs */}
       <div className="grid grid-cols-4 ">
@@ -110,9 +115,9 @@ export default function page() {
             className={`px-4 ${
               activeTab === index &&
               " border-b-2 text-center font-bold border-[#1aabb0]"
-            }  uppercase text-[12px] text-center flex items-center text-gray-800 align-text-bottom  `}
+            }  uppercase text-[13px] text-center flex items-center text-gray-800 align-text-bottom`}
           >
-            <p className="py-2">{item}</p>
+            <p className={`py-2 px-1 ${roboto.className} `}>{item}</p>
           </div>
         ))}
       </div>

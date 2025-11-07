@@ -4,6 +4,7 @@ import { CgClose } from "react-icons/cg";
 import { BsQrCode } from "react-icons/bs";
 import { useTicket } from "@/store/ticket";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const CurrentDate = () => {
   const [formattedDate, setFormattedDate] = React.useState("");
@@ -21,6 +22,7 @@ const CurrentDate = () => {
 
 export default function page() {
   const [showQr, setShowQr] = React.useState(false);
+  const router = useRouter();
   const {
     color,
     ticketPrice,
@@ -62,17 +64,21 @@ export default function page() {
         return 9.25;
     }
   };
+
+  const handleGoHome = () => {
+    router.push("/");
+  };
   return (
     <section
       className="ticket w-full h-screen flex flex-col justify-center px-4"
       style={{ backgroundColor: color }}
     >
       <div className="fixed top-0 left-0 w-full text-xs text-white flex justify-between px-4 py-4">
-        <Link href={"/"}>
-          <div className=" flex justify-center items-center gap-2">
-            <CgClose className="text-2xl text-gray-200 " />
-          </div>
-        </Link>
+        <div
+        onClick={handleGoHome}
+        className=" flex justify-center items-center gap-2">
+          <CgClose className="text-2xl text-gray-200 " />
+        </div>
         <div className="flex items-center gap-6">
           <div className="flex justify-center items-center gap-1">
             <img src="./assets/images/alert.png" alt="" className="w-4 " />
