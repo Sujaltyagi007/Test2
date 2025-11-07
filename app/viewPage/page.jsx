@@ -8,6 +8,7 @@ import { IoArrowDown } from "react-icons/io5";
 import { ImLocation } from "react-icons/im";
 import { useTicket } from "@/store/ticket";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const getTicketPrice = ({ ticketPrice }) => {
   switch (ticketPrice) {
@@ -90,7 +91,9 @@ export default function page() {
     <section className="h-screen w-full">
       {/* Header Section */}
       <div className="flex items-center gap-6 px-4 py-3">
-        <MdArrowBack className="text-gray-700 text-2xl" />
+        <Link href="/">
+          <MdArrowBack className="text-gray-700 text-2xl" />
+        </Link>
         <span className="text-[16px] font-bold">{"All Bookings"}</span>
       </div>
       {/* Navigation Tabs */}

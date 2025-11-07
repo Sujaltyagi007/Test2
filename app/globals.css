@@ -112,6 +112,11 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+body, html {
+  overscroll-behavior: contain; /* prevents pull-to-refresh */
+  touch-action: pan-x pan-y;    /* optional for touch devices */
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

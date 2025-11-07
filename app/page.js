@@ -12,26 +12,31 @@ export default function Home() {
     {
       name: "Home",
       icon: <GrHomeRounded className="text-gray-700 text-xl" />,
+      link: "/",
     },
     {
       name: "Neardy",
       icon: <Location className="w-4.5 text-gray-500 scale-200" />,
+      link: "/",
     },
     {
       name: "Ticket & Pass",
       icon: <TicketIcon className="w-5 text-gray-500 scale-200" />,
+      link: "/viewPage",
     },
     {
       name: "Around me",
       icon: <Location className="w-4.5 text-gray-500 scale-200 " />,
+      link: "/",
     },
     {
       name: "Help",
       icon: <MdHelpOutline className="text-gray-700 text-2xl" />,
+      link: "/",
     },
   ];
   return (
-    <div className=" h-screen w-full bg-[#f8f0e5] ">
+    <div className=" h-screen w-full bg-[#f8f0e5] overflow-hidden ">
       {/* Header Section */}
       <div
         style={{
@@ -112,15 +117,21 @@ export default function Home() {
         <div className="h-[8%] bg-linear-to-b from-white  to-[#8fdaed] "></div>
       </div>
       {/* Footer Section */}
-      <div className=" flex justify-around items-center p-2 text-gray-600  font-semibold fixed bottom-0 w-full bg-white">
+      <div className=" grid grid-cols-5 items-center p-2 text-gray-600  font-semibold fixed bottom-0 w-full bg-white">
         {FooterCompo.map((item, index) => (
-          <div
+          <Link
+            href={item.link}
             key={index}
-            className=" flex flex-col justify-center items-center"
+            className="flex flex-col items-center "
           >
-            {item.icon}
-            <span className="text-[12px]">{item.name}</span>
-          </div>
+            <div
+              key={index}
+              className=" flex flex-col justify-center items-center text-nowrap "
+            >
+              {item.icon}
+              <span className="text-[12px]">{item.name}</span>
+            </div>
+          </Link>
         ))}
       </div>
     </div>
