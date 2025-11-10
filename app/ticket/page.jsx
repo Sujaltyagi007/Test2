@@ -4,6 +4,7 @@ import { CgClose } from "react-icons/cg";
 import { BsQrCode } from "react-icons/bs";
 import { useTicket } from "@/store/ticket";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const CurrentDate = () => {
   const [formattedDate, setFormattedDate] = React.useState("");
@@ -20,7 +21,8 @@ const CurrentDate = () => {
 };
 
 export default function page() {
-  const { savedTicket, completeNumber } = useTicket();
+  const router = useRouter();
+  const { savedTicket } = useTicket();
   const [showQr, setShowQr] = React.useState(false);
 
   React.useEffect(() => {
@@ -61,9 +63,9 @@ export default function page() {
     >
       <div className="fixed top-0 left-0 w-full text-xs text-white flex justify-between px-4 py-4">
         <div className=" flex justify-center items-center gap-2">
-          <Link href="/">
+          <button onClick={() => router.push("/")}>
             <CgClose className="text-2xl text-gray-200 " />
-          </Link>
+          </button>
         </div>
         <div className="flex items-center gap-6">
           <div className="flex justify-center items-center gap-1">
@@ -93,7 +95,8 @@ export default function page() {
               <div className="">
                 ₹
                 {(
-                  getPriceLabel(savedTicket.ticketPrice) * savedTicket.ticketCount
+                  getPriceLabel(savedTicket.ticketPrice) *
+                  savedTicket.ticketCount
                 ).toFixed(2)}
               </div>
             </div>
