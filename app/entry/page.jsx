@@ -63,7 +63,7 @@ export default function page() {
       {/* Header section */}
       <div className="min-h-[7vh] flex items-center gap-4 px-4 mb-2 justify-between shadow-md">
         <div className=" flex justify-center items-center gap-4 ">
-          <Link href="/">
+          <Link href="/Test2/">
             <MdArrowBack className="text-2xl" />
           </Link>
           <p className="text-base font-semibold">{`New Bus Ticket`}</p>
