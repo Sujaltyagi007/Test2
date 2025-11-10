@@ -17,8 +17,8 @@ import {
   SelectValue,
 } from "../component/select";
 import { StopList } from "../data/stopData";
-import { useTicket } from "@/store/ticket";
 import { useRouter } from "next/navigation";
+import { useTicket } from "@/store/ticket";
 
 const roboto = Roboto_Condensed({
   subsets: ["latin"],
@@ -43,76 +43,37 @@ const CountdownTimer = () => {
   );
 };
 
-// const SelectStartingStop = ({ data, startValue, setStartValue }) => {
-//   const [filteredData, setFilteredData] = useState(data);
-//   useEffect(() => {
-//     if (startValue.trim() === "") {
-//       setFilteredData([]);
-//       return;
-//     }
-
-//     const filtered = data.filter((item) =>
-//       item.toLowerCase().includes(startValue.toLowerCase())
-//     );
-//     setFilteredData(filtered);
-//   }, [startValue]);
-
-//   const handleSelect = (item) => {
-//     setStartValue(item);
-//     setFilteredData([]);
-//   };
-//   return (
-//     <div className="flex flex-col gap-0.5 w-full mb-1.5 pt-0.5 ">
-//       <h2 className="text-[12.5px] font-semibold text-[#acacac]">
-//         {"Starting Stop"}
-//       </h2>
-//       <input
-//         type="text"
-//         value={startValue}
-//         placeholder="Enter Starting Stop"
-//         onChange={(e) => setStartValue(e.target.value)}
-//         className="text-sm font-semibold border border-gray-300 text-gray-700 p-1.5 w-full"
-//       />
-//       {startValue && filteredData.length > 0 && (
-//         <ul
-//           style={{ display: filteredData.length > 0 ? "block" : "none" }}
-//           className="absolute bg-white list-none border transform translate-y-14 w-[75vw] max-h-[40vh] h-fit text-wrap overflow-y-scroll overflow-x-clip "
-//           // onClick={() => setFilteredData([])}
-//         >
-//           {filteredData.map((item, index) => (
-//             <li
-//               key={index}
-//               onClick={(e) => {
-//                 e.stopPropagation();
-//                 handleSelect(item);
-//               }}
-//               className=" cursor-pointer text-wrap w-full border-b px-3 py-2 "
-//             >
-//               {item}
-//             </li>
-//           ))}
-//         </ul>
-//       )}
-//     </div>
-//   );
-// };
-
-const StopSelector = ({ label, value, setValue, data, placeholder }) => {
+const StopSelector = ({ label, value, data, placeholder }) => {
   const [filteredData, setFilteredData] = useState([]);
+  const [inputValue, setInputValue] = useState("");
   const [showList, setShowList] = useState(false);
+  const { dispatch } = useTicket();
+
   useEffect(() => {
     if (!value.trim()) {
       setFilteredData([]);
       return;
     }
     const filtered = data.filter((item) =>
-      item.toLowerCase().includes(value.toLowerCase())
+      item.toLowerCase().includes(inputValue.toLowerCase())
     );
     setFilteredData(filtered);
-  }, [value, data]);
+  }, [inputValue, data]);
+
+  useEffect(() => {
+    if (value === "start") {
+      dispatch({ type: "UPDATE", payload: { startValue: inputValue } });
+    } else {
+      dispatch({ type: "UPDATE", payload: { endValue: inputValue } });
+    }
+  }, [inputValue]);
 
   const handleSelect = (item) => {
-    setValue(item);
+    dispatch({
+      type: "UPDATE",
+      payload: { [value === "start" ? "startValue" : "endValue"]: item },
+    });
+    setInputValue(item);
     setShowList(false);
   };
 
@@ -121,9 +82,9 @@ const StopSelector = ({ label, value, setValue, data, placeholder }) => {
       <h2 className="text-[12.5px] font-semibold text-[#acacac]">{label}</h2>
       <input
         type="text"
-        value={value}
+        value={inputValue}
         onChange={(e) => {
-          setValue(e.target.value);
+          setInputValue(e.target.value);
           setShowList(true);
         }}
         onFocus={() => setShowList(true)}
@@ -151,26 +112,8 @@ const StopSelector = ({ label, value, setValue, data, placeholder }) => {
 export default function page() {
   const router = useRouter();
   const [busType, setBusType] = useState(0);
-  const [startValue, setStartValue] = useState("");
-  const [endValue, setEndValue] = useState("");
   const [data, setData] = useState(StopList || []);
-
-  useEffect(() => {
-    console.log(startValue, endValue);
-  }, [startValue, endValue]);
-
-  const {
-    color,
-    completeNumber,
-    route,
-    ticketTime,
-    ticketDate,
-    ticketCount,
-    setTicketCount,
-    ticketPrice,
-    setTicketPrice,
-    setTicket,
-  } = useTicket();
+  const { ticket, dispatch, saveTicket } = useTicket();
 
   const busTypes = [
     {
@@ -184,17 +127,7 @@ export default function page() {
   ];
 
   const handleNext = () => {
-    setTicket((prev) => ({
-      ...prev,
-      completeNumber,
-      route,
-      startValue,
-      endValue,
-      ticketTime,
-      ticketDate,
-      ticketCount,
-      ticketPrice,
-    }));
+    saveTicket();
     setTimeout(() => {
       router.push("/loading");
     }, 50);
@@ -217,10 +150,6 @@ export default function page() {
     }
   };
 
-  // <div className="font-semibold">
-  //   {getPriceLabel(ticketPrice)} ₹.{ticketPrice}0
-  // </div>;
-
   return (
     <section className="h-screen w-screen overflow-hidden ">
       {/* Header section */}
@@ -238,25 +167,32 @@ export default function page() {
         </div>
       </div>
       <div className="mx-4 my-2 shadow border bg-[#fafafa] rounded-2xl overflow-hidden ">
-        <div
-          style={{ backgroundColor: color }}
-          className={` flex justify-between text-[14px] ${roboto.className} text-white px-4 py-3 overflow-hidden rounded-t-2xl items-center`}
-        >
-          <p>
-            {ticketDate} | {ticketTime}
-          </p>
-          <p>{completeNumber}</p>
-        </div>
+        {ticket ? (
+          <div
+            style={{ backgroundColor: ticket.color || "#3563aa" }}
+            className={`flex justify-between text-[14px] ${roboto.className} text-white px-4 py-3 overflow-hidden rounded-t-2xl items-center`}
+          >
+            <div suppressHydrationWarning={true}>
+              {ticket?.ticketDate + " | " + ticket?.ticketTime}
+            </div>
+            <p>{ticket.completeNumber}</p>
+          </div>
+        ) : null}
         <div className="flex justify-between items-center p-4 ">
           <div className="flex items-center gap-2 px-1">
             <div
-              style={{ backgroundColor: color }}
+              style={{ backgroundColor: ticket.color }}
               className="text-3xl text-white w-fit p-2 rounded-full "
             >
               <IoMdBus />
             </div>
             <div>
-              <p className="font-bold text-gray-700 text-[18px] ">{route}</p>
+              <p
+                suppressHydrationWarning={true}
+                className="font-bold text-gray-700 text-[18px]"
+              >
+                {ticket?.route}
+              </p>
               <p className="text-sm font-semibold text-gray-400">{"towards"}</p>
             </div>
           </div>
@@ -274,15 +210,13 @@ export default function page() {
           <div className="flex flex-col gap-0.5 w-full py-3 ">
             <StopSelector
               label="Starting Stop"
-              value={startValue}
-              setValue={setStartValue}
+              value={"start"}
               data={data}
               placeholder="Enter Starting Stop"
             />
             <StopSelector
               label="Last Stop"
-              value={endValue}
-              setValue={setEndValue}
+              value={"end"}
               data={data}
               placeholder="Enter Last Stop"
             />
@@ -305,29 +239,13 @@ export default function page() {
             {"Number of tickets"}
           </div>
           <div className="flex items-center gap-2 ">
-            <button
-              onClick={() =>
-                setTicketCount(() => {
-                  if (ticketCount === 1 && ticketCount >= 1) return 1;
-                  return ticketCount - 1;
-                })
-              }
-              className="text-xl text-gray-700 p-0.5 rounded-full border bg-white "
-            >
+            <button onClick={() => dispatch({ type: "DECREMENT_COUNT" })}>
               <HiOutlineMinusSm className="text-gray-500  " />
             </button>
             <div className="text-base rounded-md border px-3 py-1 bg-white font-semibold text-gray-700">
-              {ticketCount}
+              {ticket.ticketCount}
             </div>
-            <button
-              onClick={() =>
-                setTicketCount(() => {
-                  if (ticketCount === 3 && ticketCount <= 3) return 3;
-                  return ticketCount + 1;
-                })
-              }
-              className="text-xl text-gray-700 p-0.5 rounded-full border bg-white "
-            >
+            <button onClick={() => dispatch({ type: "INCREMENT_COUNT" })}>
               <FiPlus className="text-gray-500" />
             </button>
           </div>
@@ -367,7 +285,7 @@ export default function page() {
         </div>
         <div className="text-end">
           <h3 className="font-extrabold text-xl ">
-            &#8377; {ticketCount * getPriceLabel(ticketPrice)}
+            &#8377; {ticket.ticketCount * getPriceLabel(ticket.ticketPrice)}
           </h3>
           <p className="text-[13px]">{"WELCOME10"}</p>
         </div>
@@ -378,19 +296,44 @@ export default function page() {
             <SelectValue placeholder="Select" />
           </SelectTrigger>
           <SelectContent side="top" align="center" alignOffset={40}>
-            <SelectItem value="5" onClick={() => setTicketPrice(5)}>
+            <SelectItem
+              value="5"
+              onClick={() =>
+                dispatch({ type: "UPDATE", payload: { ticketPrice: 5 } })
+              }
+            >
               5
             </SelectItem>
-            <SelectItem value="10" onClick={() => setTicketPrice(10)}>
+            <SelectItem
+              value="10"
+              onClick={() =>
+                dispatch({ type: "UPDATE", payload: { ticketPrice: 10 } })
+              }
+            >
               10
             </SelectItem>
-            <SelectItem value="15" onClick={() => setTicketPrice(15)}>
+            <SelectItem
+              value="15"
+              onClick={() =>
+                dispatch({ type: "UPDATE", payload: { ticketPrice: 15 } })
+              }
+            >
               15
             </SelectItem>
-            <SelectItem value="20" onClick={() => setTicketPrice(20)}>
+            <SelectItem
+              value="20"
+              onClick={() =>
+                dispatch({ type: "UPDATE", payload: { ticketPrice: 20 } })
+              }
+            >
               20
             </SelectItem>
-            <SelectItem value="25" onClick={() => setTicketPrice(25)}>
+            <SelectItem
+              value="25"
+              onClick={() =>
+                dispatch({ type: "UPDATE", payload: { ticketPrice: 25 } })
+              }
+            >
               25
             </SelectItem>
           </SelectContent>

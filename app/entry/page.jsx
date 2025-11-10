@@ -26,7 +26,7 @@ function ticTime() {
 function ticDate() {
   const now = new Date();
   const day = now.getDate().toString().padStart(2, "0");
-  const month = now.toLocaleString("en-US", { month: "short" }); // "Nov"
+  const month = now.toLocaleString("en-US", { month: "short" });
   const year = now.getFullYear();
   const formattedDate = `${day} ${month}, ${year}`;
 
@@ -43,32 +43,17 @@ export default function page() {
   const router = useRouter();
   const ticketTime = ticTime();
   const ticketDate = ticDate();
-  const {
-    setTicket,
-    setTicketTime,
-    setTicketDate,
-    route,
-    color,
-    setColor,
-    number,
-    setNumber,
-    setRoute,
-    digit,
-    setDigit,
-  } = useTicket();
+  const { ticket, dispatch } = useTicket();
 
   const handleNext = () => {
-    setTicketTime(ticketTime);
-    setTicketDate(ticketDate);
-    setTicket((prev) => ({
-      ...prev,
-      color,
-      number,
-      route,
-      digit,
-      ticketTime,
-      ticketDate,
-    }));
+    dispatch({
+      type: "UPDATE",
+      payload: {
+        ticketTime,
+        ticketDate,
+        completeNumber: ticket.number + ticket.digit,
+      },
+    });
     setTimeout(() => {
       router.push("/price");
     }, 50);
@@ -100,7 +85,12 @@ export default function page() {
             {" "}
             Like 1234 for DL 1PC 1234
           </p>
-          <InputOTP maxLength={4} onChange={(value) => setDigit(value)}>
+          <InputOTP
+            maxLength={4}
+            onChange={(value) =>
+              dispatch({ type: "UPDATE", payload: { digit: value } })
+            }
+          >
             <InputOTPGroup className={"gap-4"}>
               <InputOTPSlot
                 index={0}
@@ -134,7 +124,9 @@ export default function page() {
             type="number"
             placeholder="eg. 534 or 764"
             // value={}
-            onChange={(e) => setRoute(e.target.value)}
+            onChange={(e) =>
+              dispatch({ type: "UPDATE", payload: { route: e.target.value } })
+            }
             className="w-full px-4 py-2 border rounded-md bg-[#f7f8fc]"
           />
           <p className="text-[13px] font-normal text-gray-500">
@@ -147,8 +139,10 @@ export default function page() {
       <div className="fixed bottom-5 left-4">
         <Select
           name="busColor"
-          value={color}
-          onValueChange={(value) => setColor(value)}
+          value={ticket.color}
+          onValueChange={(value) =>
+            dispatch({ type: "UPDATE", payload: { color: value } })
+          }
         >
           <SelectTrigger className="p-2 border rounded">
             <SelectValue placeholder="Select color" />
@@ -167,8 +161,10 @@ export default function page() {
       <div className="fixed bottom-5 right-4">
         <Select
           name="busColor"
-          value={number}
-          onValueChange={(value) => setNumber(value)}
+          value={ticket.number}
+          onValueChange={(value) =>
+            dispatch({ type: "UPDATE", payload: { number: value } })
+          }
         >
           <SelectTrigger className="p-2 border rounded">
             <SelectValue placeholder="Bus Number" />

@@ -33,7 +33,7 @@ const getTicketPrice = ({ ticketPrice }) => {
 };
 
 const TicketCard = () => {
-  const { ticketPrice, startValue, endValue, route } = useTicket();
+  const { savedTicket } = useTicket();
 
   return (
     <div className="flex flex-col px-2 py-3 w-full items-center gap-2 border rounded-2xl ">
@@ -41,10 +41,10 @@ const TicketCard = () => {
       <div className="flex items-center w-full justify-between px-1 ">
         <div className="flex items-center gap-3">
           <IoMdBus className="text-[#3563aa] text-2xl" />
-          <p className="py-1 px-2 text-sm font-semibold bg-[#e8f1ff] rounded-[5px] text-[#5b7eb2] ">{`Route ${route}`}</p>
+          <p className="py-1 px-2 text-sm font-semibold bg-[#e8f1ff] rounded-[5px] text-[#5b7eb2] ">{`Route ${savedTicket.route}`}</p>
         </div>
         <div className="flex items-center gap-2">
-          <p>₹{getTicketPrice({ ticketPrice })}</p>
+          <p>₹{getTicketPrice(savedTicket.ticketPrice)}</p>
           <FaInfoCircle className="text-gray-600" />
         </div>
       </div>
@@ -53,13 +53,13 @@ const TicketCard = () => {
         <div className=" flex gap-2 items-center">
           <RiCheckboxBlankCircleFill className="text-lg text-[#219652]" />
           <p className="text-sm font-semibold">
-            {startValue || "Azadpur Terminal"}
+            {savedTicket.startValue || "Azadpur Terminal"}
           </p>
         </div>
         <IoArrowDown className="text-gray-600" />
         <div className="flex items-center gap-2 ">
           <ImLocation className="text-lg text-[#cf3b3b]" />
-          <p className="text-sm font-semibold">{endValue || "Moti Nagar"}</p>
+          <p className="text-sm font-semibold">{savedTicket.endValue || "Moti Nagar"}</p>
         </div>
       </div>
       {/* Bottom */}

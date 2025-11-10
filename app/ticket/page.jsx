@@ -3,7 +3,7 @@ import React from "react";
 import { CgClose } from "react-icons/cg";
 import { BsQrCode } from "react-icons/bs";
 import { useTicket } from "@/store/ticket";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const CurrentDate = () => {
   const [formattedDate, setFormattedDate] = React.useState("");
@@ -20,19 +20,9 @@ const CurrentDate = () => {
 };
 
 export default function page() {
+  const { savedTicket, completeNumber } = useTicket();
   const [showQr, setShowQr] = React.useState(false);
-  const router = useRouter();
-  const {
-    color,
-    ticketPrice,
-    route,
-    completeNumber,
-    ticketTime,
-    ticketDate,
-    ticketCount,
-    startValue,
-    endValue,
-  } = useTicket();
+
   React.useEffect(() => {
     const handleTouchMove = (event) => {
       if (event.touches.length > 1) {
@@ -64,27 +54,20 @@ export default function page() {
     }
   };
 
-  const handleGoHome = (e) => {
-    e.preventDefault();
-    setTimeout(() => {
-      router.push("/");
-    }, 50);
-  };
   return (
     <section
       className="ticket w-full h-screen flex flex-col justify-center px-4"
-      style={{ backgroundColor: color }}
+      style={{ backgroundColor: savedTicket?.color }}
     >
       <div className="fixed top-0 left-0 w-full text-xs text-white flex justify-between px-4 py-4">
         <div className=" flex justify-center items-center gap-2">
-          <CgClose
-            onClick={handleGoHome}
-            className="text-2xl text-gray-200 "
-          />
+          <Link href="/">
+            <CgClose className="text-2xl text-gray-200 " />
+          </Link>
         </div>
         <div className="flex items-center gap-6">
           <div className="flex justify-center items-center gap-1">
-            <img src="./assets/images/alert.png" alt="" className="w-4 " />
+            <img src="./assets/images/alert.png" alt="" className="w-5 " />
             <span>{"Issue with ticket?"}</span>
           </div>
           <div className=" ">View all tickets</div>
@@ -106,40 +89,43 @@ export default function page() {
               Transport Dept. of Delhi
             </h2>
             <div className="flex justify-between border-b py-2">
-              <div className="">{completeNumber}</div>
+              <div className="">{savedTicket.completeNumber}</div>
               <div className="">
-                ₹{getPriceLabel(ticketPrice) * ticketCount.toFixed(2)}
+                ₹
+                {(
+                  getPriceLabel(savedTicket.ticketPrice) * savedTicket.ticketCount
+                ).toFixed(2)}
               </div>
             </div>
             <div className="flex justify-between py-1">
               <div className=" flex flex-col">
                 <span className="text-xs">Bus Route</span>
-                {route}
+                {savedTicket.route}
               </div>
               <div className=" flex flex-col text-right">
                 <span className="text-xs">Fare</span>
                 <div className="font-semibold">
-                  ₹{ticketPrice * ticketCount}.0
+                  ₹{savedTicket.ticketPrice * savedTicket.ticketCount}.0
                 </div>
               </div>
             </div>
             <div className="flex justify-between py-1">
               <div className=" flex flex-col">
                 <span className="text-xs">Booking Time</span>
-                {ticketDate} | {ticketTime}{" "}
+                {savedTicket.ticketDate} | {savedTicket.ticketTime}{" "}
               </div>
               <div className=" flex flex-col text-right">
                 <span className="text-xs">Tickets</span>
-                {ticketCount}
+                {savedTicket.ticketCount}
               </div>
             </div>
             <div className=" flex flex-col">
               <span className="text-xs">Starting stop</span>
-              {startValue}
+              {savedTicket.startValue}
             </div>
             <div className=" flex flex-col">
               <span className="text-xs">Ending stop</span>
-              {endValue}
+              {savedTicket.endValue}
             </div>
             <div className=" text-xs text-center py-2">
               T<CurrentDate />
