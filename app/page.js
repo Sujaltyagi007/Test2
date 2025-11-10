@@ -10,7 +10,7 @@ import { useRouter, usePathname } from "next/navigation";
 
 export default function Home() {
   const router = useRouter();
-  const pathname = usePathname(); // current route path
+  const pathname = usePathname(); 
 
   const FooterCompo = [
     { name: "Home", icon: <GrHomeRounded className="text-xl" />, route: "/" },

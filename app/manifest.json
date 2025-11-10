@@ -5,13 +5,12 @@
     "version": "1.0.0",
     "author": "DTC",
     "start_url": ".",
-    "scope": "/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#189da1",
     "icons": [
         {
-            "src": "assets/logo/logo.png",  
+            "src": "assets/logo/logo.png",
             "sizes": "320x320",
             "type": "image/png",
             "purpose": "any"
