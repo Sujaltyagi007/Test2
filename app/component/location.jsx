@@ -13,7 +13,7 @@ const Location = ({ ...props }) => {
       {...props}
     >
       <path
-        fill="#000000"
+        fill="#979797"
         opacity="1.000000"
         stroke="none"
         d="
@@ -45,7 +45,7 @@ M536.659729,220.948914
 z"
       />
       <path
-        fill="#000000"
+        fill="#979797"
         opacity="1.000000"
         stroke="none"
         d="
@@ -87,7 +87,7 @@ z"
       />
 
       <path
-        fill="#000000"
+        fill="#979797"
         opacity="1.000000"
         stroke="none"
         d="
