@@ -8,7 +8,7 @@ import TicketIcon from "./component/ticketIcon";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export default function Home() {
+export default function page() {
   const router = useRouter();
   const FooterCompo = [
     {
