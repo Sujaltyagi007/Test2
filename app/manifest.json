@@ -5,6 +5,7 @@
     "version": "1.0.0",
     "author": "Demo",
     "start_url": "./",
+    "scope": "./",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#189da1",

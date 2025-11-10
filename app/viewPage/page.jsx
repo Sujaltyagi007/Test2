@@ -94,7 +94,7 @@ export default function page() {
   };
 
   const handleGoBackHome = () => {
-    router.push("/Test2/");
+    router.push("/");
   };
   return (
     <section className="h-screen w-full">

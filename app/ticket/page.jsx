@@ -63,7 +63,7 @@ export default function page() {
     >
       <div className="fixed top-0 left-0 w-full text-xs text-white flex justify-between px-4 py-4">
         <div className=" flex justify-center items-center gap-2">
-          <button onClick={() => router.push("/Test2/")}>
+          <button onClick={() => router.push("/")}>
             <CgClose className="text-2xl text-gray-200 " />
           </button>
         </div>
