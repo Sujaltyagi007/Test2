@@ -22,7 +22,7 @@ export default function Home() {
 
   const handleNavigate = (route) => {
     if (pathname !== route) {
-      router.push(route); // SPA-safe navigation
+      router.push(route);
     }
   };
 
