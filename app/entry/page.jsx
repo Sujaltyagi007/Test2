@@ -53,6 +53,7 @@ export default function page() {
   };
   return (
     <section className="text-gray-600 h-screen w-full ">
+      {/* Header section */}
       <div className="min-h-[7vh] flex items-center gap-4 px-4 mb-2 justify-between shadow-md">
         <div className=" flex justify-center items-center gap-4 ">
           <Link href="/">
@@ -60,15 +61,18 @@ export default function page() {
           </Link>
           <p className="text-base font-semibold">{`New Bus Ticket`}</p>
         </div>
+
         <button onClick={handleNext}>
           <p className="p-5"></p>
         </button>
       </div>
+      {/* Boxes */}
       <div className=" p-3 flex flex-col gap-3">
         <label className="font-semibold">Choose ticket booking flow</label>
-        className=
-        {`shadow-[0_5px_10px_rgba(0,0,0,0.3)] flex flex-col justify-center items-center gap-2 px-4 py-4 rounded-2xl`}
-        <div>
+        {/* First Box */}
+        <div
+          className={`shadow-[0_5px_10px_rgba(0,0,0,0.3)] flex flex-col justify-center items-center gap-2 px-4 py-4 rounded-2xl`}
+        >
           <h2 className="font-semibold">Enter Bus Number</h2>
           <p className="text-sm text-gray-400 font-medium mb-2">
             {" "}
