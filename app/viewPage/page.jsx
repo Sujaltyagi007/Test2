@@ -15,8 +15,8 @@ const roboto = Roboto_Condensed({
   weight: ["400", "500", "600", "700"],
 });
 
-const getTicketPrice = ({ ticketPrice }) => {
-  switch (ticketPrice) {
+const getTicketPrice = (price) => {
+  switch (price) {
     case 5:
       return 4.62;
     case 10:
@@ -34,7 +34,7 @@ const getTicketPrice = ({ ticketPrice }) => {
 
 const TicketCard = () => {
   const { savedTicket } = useTicket();
-
+  const price = savedTicket.ticketPrice || 10;
   return (
     <div className="flex flex-col px-2 py-3 w-full items-center gap-2 border rounded-2xl ">
       {/* Head */}
@@ -44,7 +44,7 @@ const TicketCard = () => {
           <p className="py-1 px-2 text-sm font-semibold bg-[#e8f1ff] rounded-[5px] text-[#5b7eb2] ">{`Route ${savedTicket.route}`}</p>
         </div>
         <div className="flex items-center gap-2">
-          <p>₹{getTicketPrice(savedTicket.ticketPrice)}</p>
+          <p>₹{getTicketPrice(price)}</p>
           <FaInfoCircle className="text-gray-600" />
         </div>
       </div>
@@ -59,7 +59,9 @@ const TicketCard = () => {
         <IoArrowDown className="text-gray-600" />
         <div className="flex items-center gap-2 ">
           <ImLocation className="text-lg text-[#cf3b3b]" />
-          <p className="text-sm font-semibold">{savedTicket.endValue || "Moti Nagar"}</p>
+          <p className="text-sm font-semibold">
+            {savedTicket.endValue || "Moti Nagar"}
+          </p>
         </div>
       </div>
       {/* Bottom */}

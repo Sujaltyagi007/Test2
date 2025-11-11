@@ -114,7 +114,7 @@ export default function page() {
         >
           <h2 className=" font-semibold">Enter Route</h2>
           <input
-            type="number"
+            type="text"
             placeholder="eg. 534 or 764"
             // value={}
             onChange={(e) =>
