@@ -61,7 +61,7 @@ export default function page() {
     >
       <div className="fixed top-0 left-0 w-full text-xs text-white flex justify-between px-4 py-4">
         <div className=" flex justify-center items-center gap-2">
-          <Link href="/">
+          <Link href="https://sujaltyagi007.github.io/Test2/">
             <CgClose className="text-2xl text-gray-200 " />
           </Link>
         </div>
@@ -70,7 +70,7 @@ export default function page() {
             <img src="./assets/images/alert.png" alt="" className="w-5 " />
             <span>{"Issue with ticket?"}</span>
           </div>
-          <div className=" ">View all tickets</div>
+          <div className=" ">{"View all tickets"}</div>
         </div>
       </div>
       <div className=" bg-white rounded-md    flex flex-col p-4 gap-1 w-full ">

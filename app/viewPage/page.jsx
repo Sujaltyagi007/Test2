@@ -9,6 +9,7 @@ import { ImLocation } from "react-icons/im";
 import { useTicket } from "@/store/ticket";
 import { useRouter } from "next/navigation";
 import { Roboto_Condensed } from "next/font/google";
+import Link from "next/link";
 
 const roboto = Roboto_Condensed({
   subsets: ["latin"],
@@ -95,19 +96,16 @@ export default function page() {
     router.push("/ticket");
   };
 
-  const handleGoBackHome = () => {
-    router.push("/");
-  };
   return (
     <section className="h-screen w-full">
       {/* Header Section */}
-      <div
-        onClick={handleGoBackHome}
+      <Link
+        href="https://sujaltyagi007.github.io/Test2/"
         className="flex items-center gap-6 px-4 py-3"
       >
         <MdArrowBack className="text-gray-700 text-2xl" />
         <span className="text-[16px] font-semibold">{"All Bookings"}</span>
-      </div>
+      </Link>
       {/* Navigation Tabs */}
       <div className="grid grid-cols-4 ">
         {Tabs.map((item, index) => (
