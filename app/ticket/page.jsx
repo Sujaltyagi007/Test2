@@ -56,7 +56,7 @@ export default function page() {
 
   return (
     <section
-      className="ticket w-full h-screen flex flex-col justify-center px-4"
+      className="ticket w-full h-screen flex flex-col justify-center px-4 select-none "
       style={{ backgroundColor: savedTicket?.color }}
     >
       <div className="fixed top-0 left-0 w-full text-xs text-white flex justify-between px-4 py-4">
@@ -73,7 +73,7 @@ export default function page() {
           <div className=" ">{"View all tickets"}</div>
         </div>
       </div>
-      <div className=" bg-white rounded-md    flex flex-col p-4 gap-1 w-full ">
+      <div className=" bg-white rounded-md flex flex-col p-4 gap-1 w-full ">
         {showQr ? (
           <div
             onClick={() => setShowQr(!showQr)}
