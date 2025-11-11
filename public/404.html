@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; url=./index.html" />
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+      // Redirect all 404 requests to index.html
+      const redirectTo = window.location.origin + window.location.pathname.replace(/404\.html$/, '');
+      window.location.replace(redirectTo);
+    </script>
   </head>
   <body>
     <p>Redirecting...</p>
