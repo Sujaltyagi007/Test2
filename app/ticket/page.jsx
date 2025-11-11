@@ -73,7 +73,7 @@ export default function page() {
           <div className=" ">{"View all tickets"}</div>
         </div>
       </div>
-      <div className=" bg-white rounded-md flex flex-col p-4 gap-1 w-full ">
+      <div className=" bg-white rounded-md shadow-lg flex flex-col p-4 gap-1 w-full ">
         {showQr ? (
           <div
             onClick={() => setShowQr(!showQr)}
@@ -88,7 +88,7 @@ export default function page() {
             <h2 className="font-semibold text-center w-full">
               Transport Dept. of Delhi
             </h2>
-            <div className="flex justify-between border-b py-2">
+            <div className="flex justify-between border-b border-gray-800 py-2">
               <div className="">{savedTicket.completeNumber}</div>
               <div className="">
                 ₹
