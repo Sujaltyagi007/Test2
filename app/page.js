@@ -24,10 +24,6 @@ export default function page() {
       icon: <TicketIcon className="w-5 text-[#979797] scale-200" />,
     },
     {
-      name: "Around me",
-      icon: <Location className="w-4.5 text-[#979797]! scale-200 " />,
-    },
-    {
       name: "Help",
       icon: <MdHelpOutline className="text-[#979797] text-2xl" />,
     },

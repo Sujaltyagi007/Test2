@@ -106,7 +106,7 @@ export default function page() {
               <div className=" flex flex-col text-right">
                 <span className="text-xs">Fare</span>
                 <div className="font-semibold">
-                  ₹{savedTicket.ticketPrice * savedTicket.ticketCount}.0
+                  ₹{savedTicket.ticketPrice}.0
                 </div>
               </div>
             </div>
@@ -120,7 +120,7 @@ export default function page() {
                 {savedTicket.ticketCount}
               </div>
             </div>
-            <div className=" flex flex-col">
+            <div className=" flex flex-col pb-1">
               <span className="text-xs">Starting stop</span>
               {savedTicket.startValue}
             </div>
