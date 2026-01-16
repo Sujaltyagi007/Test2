@@ -27,7 +27,7 @@ function ticDate() {
   const now = new Date();
   const day = now.getDate().toString().padStart(2, "0");
   const month = now.toLocaleString("en-US", { month: "short" });
-  const year = now.getFullYear();
+  const year = now.getFullYear().toString().slice(-2);
   const formattedDate = `${day} ${month}, ${year}`;
   return formattedDate;
 }
@@ -146,6 +146,7 @@ export default function page() {
             <SelectItem value="#209151">Green</SelectItem>
             <SelectItem value="#cd3939">Red</SelectItem>
             <SelectItem value="#f28526">Orange</SelectItem>
+            <SelectItem value="#6D6E6F">None</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -169,6 +170,7 @@ export default function page() {
             <SelectItem value="DL1PD">DL1PD</SelectItem>
             <SelectItem value="DL1PC">DL1PC</SelectItem>
             <SelectItem value="DL1PB">DL1PB</SelectItem>
+            <SelectItem value=" ">None</SelectItem>
           </SelectContent>
         </Select>
       </div>

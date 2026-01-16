@@ -88,7 +88,7 @@ export default function page() {
             <h2 className="font-semibold text-center w-full">
               Transport Dept. of Delhi
             </h2>
-            <div className="flex justify-between border-b border-gray-800 py-2">
+            <div className="flex justify-between border-b border-gray-950 py-2">
               <div className="">{savedTicket.completeNumber}</div>
               <div className="">
                 ₹
@@ -154,6 +154,9 @@ export default function page() {
           </>
         )}
       </div>
+      {savedTicket.color === "#6D6E6F" && (
+        <p className="text-center absolute bottom-10 my-6 w-fit bg-white px-4 py-2 self-center rounded-lg text-red-700 " >{`Validated At: ${savedTicket.ticketDate} | ${savedTicket.ticketTime}`}</p>
+      )}
     </section>
   );
 }
